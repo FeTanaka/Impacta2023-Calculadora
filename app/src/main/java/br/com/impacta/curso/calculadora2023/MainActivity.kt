@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         binding.buttonPonto.setOnClickListener { digitaNumero(it) }
 
         binding.buttonApagar.setOnClickListener { apagarUltimoNumero() }
-        binding.buttonApagar.setOnLongClickListener{
+        binding.buttonApagar.setOnLongClickListener {
             apagarTodoNumero()
             true
         }
@@ -40,26 +40,30 @@ class MainActivity : AppCompatActivity() {
         val botao = view as Button
         if (botao == binding.button0 && binding.textViewLinhaInferior.text.isEmpty())
             return
-        var sufixo = ""
 
-        if (botao == binding.buttonPonto && binding.textViewLinhaInferior.text.isEmpty()) {
-            sufixo = "0"
-        } else {
-            val validacao = validarPonto(binding.textViewLinhaInferior.text.toString())
-            if (validacao == true) {
-                sufixo = ""
+        var prefixo = binding.textViewLinhaInferior.text.toString()
+        if (prefixo == "0") {
+            prefixo = ""
+        }
+
+        if (botao == binding.buttonPonto) {
+            if (validarPonto())
+                return
+            if (prefixo.isEmpty()) {
+                prefixo = "0"
             }
         }
 
-        binding.textViewLinhaInferior.text = "${sufixo}${binding.textViewLinhaInferior.text}${botao.text}"
+        binding.textViewLinhaInferior.text = "${prefixo}${botao.text}"
     }
 
-    fun validarPonto(texto: String): Boolean {
+    fun validarPonto(): Boolean {
         return binding.textViewLinhaInferior.text.toString().contains(".")
     }
 
     fun apagarUltimoNumero() {
-        binding.textViewLinhaInferior.text = binding.textViewLinhaInferior.text.toString().dropLast(1)
+        binding.textViewLinhaInferior.text =
+            binding.textViewLinhaInferior.text.toString().dropLast(1)
     }
 
     fun apagarTodoNumero() {
