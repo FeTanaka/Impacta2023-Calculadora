@@ -27,12 +27,42 @@ class MainActivity : AppCompatActivity() {
         binding.button7.setOnClickListener { digitaNumero(it) }
         binding.button8.setOnClickListener { digitaNumero(it) }
         binding.button9.setOnClickListener { digitaNumero(it) }
+        binding.buttonPonto.setOnClickListener { digitaNumero(it) }
+
+        binding.buttonApagar.setOnClickListener { apagarUltimoNumero() }
+        binding.buttonApagar.setOnLongClickListener{
+            apagarTodoNumero()
+            true
+        }
     }
 
     fun digitaNumero(view: View) {
         val botao = view as Button
         if (botao == binding.button0 && binding.textViewLinhaInferior.text.isEmpty())
             return
-        binding.textViewLinhaInferior.text = "${binding.textViewLinhaInferior.text}${botao.text}"
+        var sufixo = ""
+
+        if (botao == binding.buttonPonto && binding.textViewLinhaInferior.text.isEmpty()) {
+            sufixo = "0"
+        } else {
+            val validacao = validarPonto(binding.textViewLinhaInferior.text.toString())
+            if (validacao == true) {
+                sufixo = ""
+            }
+        }
+
+        binding.textViewLinhaInferior.text = "${sufixo}${binding.textViewLinhaInferior.text}${botao.text}"
+    }
+
+    fun validarPonto(texto: String): Boolean {
+        return binding.textViewLinhaInferior.text.toString().contains(".")
+    }
+
+    fun apagarUltimoNumero() {
+        binding.textViewLinhaInferior.text = binding.textViewLinhaInferior.text.toString().dropLast(1)
+    }
+
+    fun apagarTodoNumero() {
+        binding.textViewLinhaInferior.text = ""
     }
 }
