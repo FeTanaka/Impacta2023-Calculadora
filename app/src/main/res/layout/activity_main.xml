@@ -31,7 +31,6 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:padding="8dp"
-        android:text="123 +"
         android:textAlignment="textEnd"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/textViewLinhaInferior"

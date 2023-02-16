@@ -34,6 +34,13 @@ class MainActivity : AppCompatActivity() {
             apagarTodoNumero()
             true
         }
+
+        binding.buttonAdicao.setOnClickListener { digitaOperacao(it) }
+        binding.buttonSubtracao.setOnClickListener { digitaOperacao(it) }
+        binding.buttonMultiplicacao.setOnClickListener { digitaOperacao(it) }
+        binding.buttonDivisao.setOnClickListener { digitaOperacao(it) }
+        binding.buttonPorcentagem.setOnClickListener { digitaOperacao(it) }
+
     }
 
     fun digitaNumero(view: View) {
@@ -67,6 +74,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun apagarTodoNumero() {
+        binding.textViewLinhaInferior.text = ""
+    }
+
+    fun digitaOperacao(view: View) {
+        val botao = view as Button
+
+        binding.textViewLinhaSuperior.text = "${binding.textViewLinhaInferior.text} ${botao.text}"
         binding.textViewLinhaInferior.text = ""
     }
 }
